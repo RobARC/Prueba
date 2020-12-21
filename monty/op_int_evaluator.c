@@ -6,16 +6,19 @@
  * @unsigned int line_number: line number
  * Return: void
 **/
-void (*op_int_evaluator(char *given_opcode))(stack_t **stack, unsigned int line_number)
+void op_int_evaluator(char *given_opcode, stack_t **stack, unsigned int line_number)
 {
-	instruction_t opcode_func[] = {{"push", op_push}, {"pall", op_pall},
-		{"pint", op_pint}, {"pop", op_pop}, {"swap", op_swap}, {"add", op_add},
-		{"nop", op_nop}, {NULL, NULL}}
-	int counter;
-	while(opcode_func[counter] != NULL)
+	instruction_t opcode_func[] = {{"push", op_push}, {NULL, NULL}};
+	int counter = 0;
+
+	printf("Antes de evaluar\n");
+	while(counter < 1)
 	{
-		if (*opcode_func[counter].opcode == *given_opcode)
-			opcode_func[counter].f; /**pending to review if needed to exit or return something here when executing a function**/
-		i++;
+		if (strcmp(opcode_func[counter].opcode, given_opcode) == 0)
+		{
+			opcode_func[counter].f(stack, line_number);
+			break;
+		}
+		counter++;
 	}
 }

@@ -22,6 +22,8 @@ typedef struct stack_s
         struct stack_s *next;
 } stack_t;
 
+
+
 /**
  * struct instruction_s - opcode and its function
  * @opcode: the opcode
@@ -36,7 +38,19 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-int pushed_integer;
+/**Function pointer that will evaluate opcode**/
+void op_int_evaluator(char *given_opcode, stack_t **stack, unsigned int line_number);
 
+/**opcodes functions**/
+void op_push(stack_t **stack, unsigned int line_number);
+void op_pall(stack_t **stack, unsigned int line_number);
+void op_pint(stack_t **stack, unsigned int line_number);
+void op_pop(stack_t **stack, unsigned int line_number);
+
+/**DELIM**/
+#define DELIM " \n"
+
+/**Global variable pushed integer**/
+char *pushed_integer;
 
 #endif /* MONTY_H */

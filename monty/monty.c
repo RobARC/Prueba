@@ -1,4 +1,4 @@
-#include "monty.h"
+#include "monty_header.h"
 /*
  *
  *
@@ -9,9 +9,9 @@ int main(int argc, char *argv[])
 	FILE *OPFile;
 	ssize_t read = 0;
 	size_t len = 0;
-	char *line = NULL;
-	char *token = NULL;
-	char d[] = " \n";
+	char *line = NULL, *token_op = NULL, *token = NULL;
+	int line_number = 1;
+	stack_t *stack = NULL;
 
 	if (argc != 2)
 	{	
@@ -27,20 +27,27 @@ int main(int argc, char *argv[])
 	}
 	else
 		puts("Abrio archivo");
-
+	
 	while ((read = getline(&line, &len, OPFile)) != -1)
 	{
-		token = strtok(line, d);
+		printf("%d ", line_number);
+		token = strtok(line, DELIM);
+		token_op = token;
+		printf("This is token_op: %s ", token_op);
 		while (token != NULL)
 		{
-			printf("%s ", token);
-			token = strtok(NULL, d);
-		}
-		printf(" \n"); /**after tokenize we will evaluate store the integer in a global variable
-						then we will evaluate what opcode was given so we can execute the
-						function or print an error if that's the case. PD: we should evaluate
-						if the integer given is actually an integer or nothing was provided**/
+			token = strtok(NULL, DELIM);
+			pushed_integer = token;
+			if ((strcmp(token_op, "push") == 0) && (token == NULL))
+			{
+				printf("entró en la comparación rara\n");
+				exit(EXIT_FAILURE);
+			}
+			op_int_evaluator(token_op, &stack, line_number);
+			printf("This is token int: %s \n", token);
+			break;
+		}		
+		line_number++;
 }
 return 0;
-
 }
