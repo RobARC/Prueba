@@ -36,7 +36,10 @@ int main(int argc, char *argv[])
 			printf("%s ", token);
 			token = strtok(NULL, d);
 		}
-		printf(" \n");
+		printf(" \n"); /**after tokenize we will evaluate store the integer in a global variable
+						then we will evaluate what opcode was given so we can execute the
+						function or print an error if that's the case. PD: we should evaluate
+						if the integer given is actually an integer or nothing was provided**/
 }
 return 0;
 
